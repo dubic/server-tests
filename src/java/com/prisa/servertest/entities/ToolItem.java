@@ -27,18 +27,19 @@ import javax.persistence.Temporal;
  * @author DUBIC
  */
 @Entity
-@Table(name = "st_test_tool")
-public class TestTool implements Serializable {
+@Table(name = "st_tool_item")
+public class ToolItem implements Serializable {
 
     private Long id;
     private String name;
     private String description;
     private TestType type;
+    private String iconPath;
     private List<TestParam> testParams = new ArrayList<TestParam>();
     private Date created = new Date();
     private Date updated = new Date();
 
-    public TestTool() {
+    public ToolItem() {
     }
 
     @Id
@@ -102,6 +103,14 @@ public class TestTool implements Serializable {
 
     public void setUpdated(Date updated) {
         this.updated = updated;
+    }
+
+    public String getIconPath() {
+        return iconPath;
+    }
+
+    public void setIconPath(String iconPath) {
+        this.iconPath = iconPath;
     }
 
     @Override

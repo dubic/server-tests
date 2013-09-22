@@ -10,7 +10,7 @@ import com.prisa.servertest.dto.TTool;
 import com.prisa.servertest.engines.CustomScriptEngine;
 import com.prisa.servertest.engines.RESTEngine;
 import com.prisa.servertest.entities.TestParam;
-import com.prisa.servertest.entities.TestTool;
+import com.prisa.servertest.entities.ToolItem;
 import com.prisa.servertest.enums.TestType;
 import javax.inject.Inject;
 import org.apache.log4j.Logger;
@@ -40,12 +40,12 @@ public class TestService {
         runtimeEngine.executeTest(tParam);
     }
 
-    public void saveTestTool(TestTool tool) throws Exception{
+    public void saveTestTool(ToolItem tool) throws Exception{
         log.debug("saving test tool - "+tool.toString());
         db.merge(tool);
     }
     
-    public void deleteTestTool(TestTool tool) throws Exception{
+    public void deleteTestTool(ToolItem tool) throws Exception{
         log.debug("delete test tool - "+tool.toString());
         db.delete(tool);
     }

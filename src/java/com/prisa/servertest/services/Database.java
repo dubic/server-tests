@@ -5,6 +5,7 @@
 package com.prisa.servertest.services;
 
 
+import com.prisa.servertest.entities.User;
 import java.util.List;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
@@ -75,17 +76,16 @@ public class Database {
         throw new UnsupportedOperationException("remi give me users jar");
     }
 
-//    public User findUserByEmailPasswordStatus(String email, String pword, Status status) throws Exception{
-//        return em.createQuery("SELECT u FROM User u where u.email = :email AND u.password = :pword and u.status = :status",User.class)
-//                .setParameter("pword", pword).setParameter("email", email)
-//                .setParameter("status", status).getSingleResult();
-//    }
+    public User findUserByUsernamePassword(String uname, String pword) throws Exception{
+        return em.createQuery("SELECT u FROM User u where u.username = :username AND u.password = :pword",User.class)
+                .setParameter("pword", pword).setParameter("username", uname).getSingleResult();
+    }
 //
-//    public User findUserByEmail(String email) throws Exception{
-//        log.debug("findByString("+email+")");
-//        return em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
-//                .setParameter("email", email).getSingleResult();
-//    }
+    public User findUserByUsername(String uname) throws Exception{
+        log.debug("findByString("+uname+")");
+        return em.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
+                .setParameter("username", uname).getSingleResult();
+    }
 //
 //    public UserLoginAttempts getUserLoginAttempt(User user) throws Exception{
 //        return em.createQuery("SELECT la FROM UserLoginAttempts la where la.user.id = :id", UserLoginAttempts.class)
