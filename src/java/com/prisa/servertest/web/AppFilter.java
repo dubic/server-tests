@@ -5,6 +5,7 @@
 package com.prisa.servertest.web;
 
 import com.prisa.servertest.services.Database;
+import com.prisa.servertest.utils.ResConstants;
 import java.io.IOException;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -41,7 +42,7 @@ public class AppFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain)throws IOException, ServletException {
       if(!this.adminConfigured){
             //no admin, go to admin creation page
-          request.getRequestDispatcher("adminCreationPage").forward(request, response);
+          request.getRequestDispatcher(ResConstants.ADMIN_CREATE_PAGE).forward(request, response);
         }else{
             chain.doFilter(request, response);
         }

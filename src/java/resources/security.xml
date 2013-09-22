@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  - Sample namespace-based configuration
+  -
+  -->
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <!--<debug />-->
+
+<!--    <global-method-security pre-post-annotations="enabled" />
+
+    <http pattern="/static/**" security="none"/>
+    <http pattern="/loggedout.jsp" security="none"/>-->
+
+    <http use-expressions="true">
+        <intercept-url pattern="/secure/extreme/**" access="hasRole('supervisor')"/>
+        <intercept-url pattern="/**/*.css" access="permitAll" />
+        <intercept-url pattern="/**/*.js" access="permitAll" />
+        
+        <intercept-url pattern="/faces/login.xhtml" access="permitAll" />
+        <intercept-url pattern="/faces/register.xhtml" access="permitAll" />
+        <intercept-url pattern="/faces/index.xhtml" access="hasRole('ROLE_USER')" />
+        <intercept-url pattern="/**" access="isAuthenticated()" />
+        <form-login login-page="/faces/login.xhtml" default-target-url="/faces/index.xhtml" username-parameter="email" password-parameter="password"/>
+        <logout logout-success-url="/faces/logged-out.xhtml" delete-cookies="JSESSIONID"/>
+        <remember-me />
+<!--
+    Uncomment to enable X509 client authentication support
+        <x509 />
+-->
+        <!-- Uncomment to limit the number of sessions a user can have -->
+<!--        <session-management invalid-session-url="/timeout.jsp">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>-->
+
+    </http>
+
+    
+    <beans:bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+    <beans:bean id="customAuthenticationProvider" class="com.prisa.servertest.authentication.CustomAuthenticationProvider"/>
+    <beans:bean id="userDetailsService" class="com.prisa.servertest.authentication.CustomUserDetailsService"/>
+
+    <authentication-manager>
+        <authentication-provider ref="customAuthenticationProvider">
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>
