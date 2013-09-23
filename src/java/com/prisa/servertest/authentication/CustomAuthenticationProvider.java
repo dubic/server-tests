@@ -6,6 +6,7 @@ package com.prisa.servertest.authentication;
 
 import com.prisa.servertest.entities.Role;
 import com.prisa.servertest.entities.User;
+import com.prisa.servertest.enums.UserState;
 import com.prisa.servertest.services.Database;
 import com.prisa.servertest.services.UserService;
 import com.prisa.servertest.utils.TestUtils;
@@ -49,7 +50,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             grantedAuths.add(new SimpleGrantedAuthority(user.getRole().getName()));
             Authentication auth = new UsernamePasswordAuthenticationToken(a.getName(), a.getCredentials().toString(), grantedAuths);
             SecurityContextHolder.getContext().setAuthentication(auth);
-
+            user.setUserState(UserState.ONLINE);
+            try {
+                userService.updateUser(user);
+            } catch (Exception ex) {
+                log.debug("could not set user to online");
+            }
             return auth;
         } else {
 

@@ -69,7 +69,7 @@ public class CommandEngine implements RuntimeEngine{
 
     @Override
     public void updateResult(String data) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        
     }
 
   

@@ -10,5 +10,6 @@ package com.prisa.servertest.utils;
  */
 public class ResConstants {
     public static final String ADMIN_CREATE_PAGE  = "adminCreationPage";
+    public static final String PUSH_URL = "some url";
     
 }
