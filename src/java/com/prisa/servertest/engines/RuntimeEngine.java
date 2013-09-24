@@ -14,6 +14,7 @@ import java.util.concurrent.Future;
  */
 public interface RuntimeEngine extends Runnable {
     public Future executeTest(TTool tParam);
-    public void updateResult(String data);
+    public void updateResult(String data, String bid);
     public void stop() throws Exception;
+    public boolean isUpdateReady();
 }

@@ -16,6 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import org.apache.log4j.Logger;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  *
@@ -25,7 +27,7 @@ import org.apache.log4j.Logger;
 public class AppFilter implements Filter {
      private static final Logger log = Logger.getLogger(AppFilter.class);
     private boolean adminConfigured = false;
-    @Inject private Database db;
+//    @Inject private Database db;
     
     public AppFilter() {
     }
@@ -60,8 +62,10 @@ public class AppFilter implements Filter {
      */
     @Override
     public void init(FilterConfig filterConfig) {        
-        log.debug("Application Filter initializing...........");
-        log.debug("checking if admin account has been created");
+        log.debug("Application Filter initializing...........".toUpperCase());
+        log.debug("checking if admin account has been created".toUpperCase());
+        ApplicationContext ctx = WebApplicationContextUtils.getRequiredWebApplicationContext(filterConfig.getServletContext());
+        Database db = ctx.getBean(Database.class);
         if(db.getAdmin() == null){
             this.adminConfigured = false;
         }else{

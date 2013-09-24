@@ -39,8 +39,9 @@ private Logger log = Logger.getLogger(getClass());
         String data = request.getParameter("data");
         System.out.println("broadcaster id is >> "+bid);
         System.out.println("data >> "+data);
-        
+        out.println("response committed");
         broadcast(bid,data);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

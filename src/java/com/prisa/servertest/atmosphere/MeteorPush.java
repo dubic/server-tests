@@ -56,6 +56,7 @@ private Logger log = Logger.getLogger(getClass());
     }
 
     Broadcaster createBroadcaster(String broadcasterId) {
+        System.out.println("bid - "+broadcasterId);
         Broadcaster b = BroadcasterFactory.getDefault().lookup(broadcasterId, true);
         return b;
     }

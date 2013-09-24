@@ -9,10 +9,10 @@ import com.prisa.servertest.engines.CommandEngine;
 import com.prisa.servertest.dto.TTool;
 import com.prisa.servertest.engines.CustomScriptEngine;
 import com.prisa.servertest.engines.RESTEngine;
-import com.prisa.servertest.entities.TestParam;
 import com.prisa.servertest.entities.ToolItem;
 import com.prisa.servertest.enums.TestType;
 import javax.inject.Inject;
+import javax.inject.Named;
 import org.apache.log4j.Logger;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -20,6 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
  *
  * @author DUBIC
  */
+@Named("testService")
 public class TestService {
 
     private static final Logger log = Logger.getLogger(CommandEngine.class);

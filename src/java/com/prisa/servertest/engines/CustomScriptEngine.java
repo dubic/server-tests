@@ -18,11 +18,7 @@ public class CustomScriptEngine implements RuntimeEngine{
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    @Override
-    public void updateResult(String data) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+ 
     @Override
     public void stop() throws Exception {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -30,6 +26,16 @@ public class CustomScriptEngine implements RuntimeEngine{
 
     @Override
     public void run() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void updateResult(String data, String bid) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public boolean isUpdateReady() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

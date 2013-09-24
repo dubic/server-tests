@@ -24,10 +24,10 @@ import java.util.logging.Logger;
  */
 public class Test {
     public static void main(String[] djk){
-//        runCmd();
-        postTest();
+        runCmd();
+//        postTest();
     }
-    private static String readStream(InputStream inputStream, InputStream errorStream) throws IOException {
+    private static String readStream(InputStream inputStream, InputStream errorStream) throws IOException, InterruptedException {
         System.out.println("reading data from streams");
         String line = null;
         StringBuilder buffer = new StringBuilder();
@@ -35,9 +35,13 @@ public class Test {
         while ((line = reader.readLine()) != null) {            
             buffer.append(line);
         }
-        BufferedReader ereader = new BufferedReader(new InputStreamReader(errorStream));
+        BufferedReader ereader = new BufferedReader(new InputStreamReader(errorStream),5000);
+        int c = 0;
         while ((line = ereader.readLine()) != null) {            
             buffer.append(line);
+            Thread.sleep(1000);
+            System.out.println(c+" data - "+line);
+            c++;
         }
         return buffer.toString();
     }
@@ -45,7 +49,7 @@ public class Test {
     private static void runCmd() {
         //        System.out.println("enc - "+DigestUtils.md5Hex("dubicdcamic4602"));
 //         log.debug("executing command test - "+tParam);
-        ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\java\\jre7\\bin\\java","-version");
+        ProcessBuilder pb = new ProcessBuilder("C:\\Program Files\\java\\jre7\\bin\\java","-h");
 //        for (Object object : tParam.getParams()) {
 //            pb.command((String)object);
 //        }
@@ -54,8 +58,8 @@ public class Test {
             InputStream inputStream = cProcess.getInputStream();
             InputStream errorStream = cProcess.getErrorStream();
             String data = readStream(inputStream, errorStream);
-            System.out.println("data - "+data);
-        } catch (IOException ex) {
+//            System.out.println("data - "+data);
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
