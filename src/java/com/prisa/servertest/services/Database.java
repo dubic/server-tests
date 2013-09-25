@@ -5,6 +5,7 @@
 package com.prisa.servertest.services;
 
 
+import com.prisa.servertest.entities.Email;
 import com.prisa.servertest.entities.User;
 import java.util.List;
 import javax.inject.Named;
@@ -91,4 +92,10 @@ public class Database {
 //        return em.createQuery("SELECT la FROM UserLoginAttempts la where la.user.id = :id", UserLoginAttempts.class)
 //                .setParameter("id", user.getId()).getSingleResult();
 //    }
+    
+    public List<Email> getUnsentMails(){
+        return em.createQuery("SELECT e FROM Email e WHERE e.sent = FALSE", Email.class).getResultList();
+    }
+    
+    
 }

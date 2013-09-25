@@ -27,12 +27,13 @@ import javax.persistence.Temporal;
 @Entity
 @Table(name = "st_role")
 public class Role implements Serializable {
-public static final String ADMIN = "ROLE_ADMIN";
+
+    public static final String ADMIN = "ROLE_ADMIN";
     private Long id;
     private String name;
     private String description;
-  private RoleType roleType;
-  private List<ToolItem> tools;
+    private RoleType roleType;
+    private List<ToolItem> tools;
     private Date created = new Date();
     private Date updated = new Date();
 
@@ -40,7 +41,7 @@ public static final String ADMIN = "ROLE_ADMIN";
     }
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -64,7 +65,8 @@ public static final String ADMIN = "ROLE_ADMIN";
     public void setDescription(String description) {
         this.description = description;
     }
-@Enumerated(EnumType.STRING)
+
+    @Enumerated(EnumType.STRING)
     public RoleType getRoleType() {
         return roleType;
     }
@@ -73,7 +75,7 @@ public static final String ADMIN = "ROLE_ADMIN";
         this.roleType = roleType;
     }
 
-    @OneToMany(cascade= CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     public List<ToolItem> getTools() {
         return tools;
     }
@@ -81,8 +83,6 @@ public static final String ADMIN = "ROLE_ADMIN";
     public void setTools(List<ToolItem> tools) {
         this.tools = tools;
     }
-
-    
 
     @Temporal(javax.persistence.TemporalType.DATE)
     public Date getCreated() {
@@ -106,6 +106,4 @@ public static final String ADMIN = "ROLE_ADMIN";
     public String toString() {
         return new Gson().toJson(this);
     }
-    
-    
 }

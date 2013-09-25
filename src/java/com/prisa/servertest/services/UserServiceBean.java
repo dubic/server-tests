@@ -4,10 +4,14 @@
  */
 package com.prisa.servertest.services;
 
+import com.prisa.servertest.entities.Email;
+import com.prisa.servertest.entities.Role;
 import com.prisa.servertest.entities.User;
+import com.prisa.servertest.enums.RoleType;
 import com.prisa.servertest.enums.UserState;
 import com.prisa.servertest.enums.UserStatus;
 import com.prisa.servertest.enums.UserType;
+import com.prisa.servertest.utils.ResConstants;
 import com.prisa.servertest.utils.TestUtils;
 import java.io.Serializable;
 import java.util.List;
@@ -26,6 +30,7 @@ import org.springframework.security.core.AuthenticationException;
  */
 @Named("userService")
 public class UserServiceBean implements UserService {
+    private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(UserServiceBean.class);
     @Inject private Database db;
 
     @Override
@@ -33,6 +38,10 @@ public class UserServiceBean implements UserService {
         user.setUserType(UserType.LOCAL_USER);
         user.setPassword(TestUtils.hash(user.getUsername()+user.getPassword()));
         User createdUser = (User) db.merge(user);
+        //if user created is not a LOCAL user, send activation mail
+        if(createdUser.getId() != null && createdUser.getUserType() != UserType.LOCAL_USER){
+            queueActivationMail(createdUser);
+        }
         return createdUser;
     }
 
@@ -108,5 +117,16 @@ public class UserServiceBean implements UserService {
         } catch (Exception ex) {
            throw new AuthenticationCredentialsNotFoundException("error in db");
         }
+    }
+
+    private void queueActivationMail(User user) throws Exception {
+        log.info("queueing activation mail for - "+user.getFirstName());
+        Email mail = new Email();
+        mail.setBody(null);
+        mail.setRecipient(user.getEmail());
+        mail.setSender(ResConstants.MAIL_SENDER_NAME);
+        mail.setSubject(ResConstants.ACTIVATION_MAIL_SUBJECT);
+        db.persist(mail);
+        log.info("mail queued for - "+user.getEmail());
     }
 }

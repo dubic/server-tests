@@ -35,6 +35,7 @@ public class ToolItem implements Serializable {
     private String description;
     private TestType type;
     private String iconPath;
+    private String internalResPath;
     private List<TestParam> testParams = new ArrayList<TestParam>();
     private Date created = new Date();
     private Date updated = new Date();
@@ -111,6 +112,14 @@ public class ToolItem implements Serializable {
 
     public void setIconPath(String iconPath) {
         this.iconPath = iconPath;
+    }
+
+    public String getInternalResPath() {
+        return internalResPath;
+    }
+
+    public void setInternalResPath(String internalResPath) {
+        this.internalResPath = internalResPath;
     }
 
     @Override

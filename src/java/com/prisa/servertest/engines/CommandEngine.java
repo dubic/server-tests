@@ -66,10 +66,10 @@ public class CommandEngine implements RuntimeEngine{
         BufferedReader ereader = new BufferedReader(new InputStreamReader(errorStream));
         while ((line = ereader.readLine()) != null) {            
             buffer.append(line);
-            while (this.updateReady) {                
+//            while (this.updateReady) {                
                 updateResult(line, "dubic");
-                updateReady = false;
-            }
+//                updateReady = false;
+//            }
         }
         return buffer.toString();
     }
@@ -84,18 +84,18 @@ public class CommandEngine implements RuntimeEngine{
 
     @Override
     public void updateResult(String data, String bid) {
-        try {
-            //        Broadcaster b = BroadcasterFactory.getDefault().lookup(bid);
-            //        b.broadcast(data);
-                    PushService.push(data, bid);
+//        try {
+                    Broadcaster b = BroadcasterFactory.getDefault().lookup(bid);
+                    b.broadcast(data);
+//                    PushService.push(data, bid);
                     log.debug("data pushed to >> "+bid);
-        } catch (MalformedURLException ex) {
-            java.util.logging.Logger.getLogger(CommandEngine.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(CommandEngine.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        } catch (MalformedURLException ex) {
+//            java.util.logging.Logger.getLogger(CommandEngine.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            java.util.logging.Logger.getLogger(CommandEngine.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
-        updateReady = true;
+//        updateReady = true;
     }
 
     @Override
